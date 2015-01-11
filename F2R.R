@@ -57,17 +57,28 @@ stderr.d = function(d, n1, n2) {
   term2 = (n1+n2)/(n1+n2-2)
   return(term1*term2)
 }
-d2r = function(d)
 
-r = d / Sqr(d ^ 2 + 4)
-StdErr(r) = Sqr(16 * StdErr(d) ^ 2 / ((d ^ 2 + 4) ^ 3))
+# Odds Ratio into Cohen's d
+# Hasselblad & Hedges (1995) technique
+OR.to.d = function(OR=NULL, b=NULL) {
+  if (!is.null(OR)) b1 = log(OR)
+  if (!is.null(b)) if (b1 != b) print("Nonmatching OR and b! One or the other, please.")
+  if (is.null(b)) b = b1
+  return(b * sqrt(3)/pi)
+}
 
-r = 3,000 / Sqr(3,000 ^ 2 + 4) = 0,832
-StdErr(r) = Sqr(16 * 0,149 ^ 2 / ((3,000 ^ 2 + 4) ^ 3)) = 0,013
 
-Computation of Z
-FisherZ = 0.5 * Log((1 + r) / (1 - r))
-StdErr(FisherZ) = StdErr(r) / (1 - r ^ 2)
-
-FisherZ = 0.5 * Log((1 + 0,832) / (1 - 0,832)) = 1,195
-StdErr(FisherZ) = (0,013) / (1 - 0,832 ^ 2) = 0,041
+# d2r = function(d)
+# 
+# r = d / Sqr(d ^ 2 + 4)
+# StdErr(r) = Sqr(16 * StdErr(d) ^ 2 / ((d ^ 2 + 4) ^ 3))
+# 
+# r = 3,000 / Sqr(3,000 ^ 2 + 4) = 0,832
+# StdErr(r) = Sqr(16 * 0,149 ^ 2 / ((3,000 ^ 2 + 4) ^ 3)) = 0,013
+# 
+# Computation of Z
+# FisherZ = 0.5 * Log((1 + r) / (1 - r))
+# StdErr(FisherZ) = StdErr(r) / (1 - r ^ 2)
+# 
+# FisherZ = 0.5 * Log((1 + 0,832) / (1 - 0,832)) = 1,195
+# StdErr(FisherZ) = (0,013) / (1 - 0,832 ^ 2) = 0,041
