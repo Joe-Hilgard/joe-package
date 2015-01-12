@@ -62,7 +62,7 @@ stderr.d = function(d, n1, n2) {
 # Hasselblad & Hedges (1995) technique
 OR.to.d = function(OR=NULL, b=NULL) {
   if (!is.null(OR)) b1 = log(OR)
-  if (!is.null(b)) if (b1 != b) print("Nonmatching OR and b! One or the other, please.")
+  if (!is.null(b) & !is.null(OR)) if (b1 != b) print("Nonmatching OR and b! One or the other, please.")
   if (is.null(b)) b = b1
   return(b * sqrt(3)/pi)
 }
