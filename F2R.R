@@ -68,12 +68,37 @@ OR.to.d = function(OR=NULL, b=NULL) {
 }
 
 
-# d2r = function(d)
+d2r = function(d, n1, n2, width=.95) {
+  r = d / sqrt(d ^ 2 + 4)
+  term1 = (n1+n2)/(n1*n2) + d^2/(2*(n1+n2-2))
+  term2 = (n1+n2)/(n1+n2-2)
+  StdErr.d = sqrt(term1*term2)
+  a = ((n1+n2)^2)/(n1*n2)
+  StdErr.r = sqrt(a^2 * StdErr.d ^ 2 / ((d ^ 2 + a) ^ 3))
+  return(list("r"=r, "StdErr.r"=StdErr.r))
+}
+
+d2r2z = function(d, n1, n2) {
+  r = d2r(d, n1, n2)[[1]]
+  StdErr.r = d2r(d, n1, n2)[[2]]
+  FisherZ = 0.5 * log((1 + r) / (1 - r))
+  StdErr.z = StdErr.r / (1 - r ^ 2) 
+  return(list("Z" = FisherZ, "StdErr.z" = StdErr.z))
+}
+
+fucker = function(r, n) {
+  se.r = sqrt((1-r^2)/(n-2))
+  se.r.2 = sqrt(1-r^2) / sqrt(n-2)
+  print(paste(round(se.r,2), round(se.r.2, 2)))
+  stopifnot(se.r - se.r.2 < .001)
+  #
+  se.z = se.r / (1 - r^2)
+  se.z.2 = 1 / (sqrt(1-r^2) * sqrt(n-2))
+  stopifnot(se.z - se.z.2 < .001)
+  return(list("se.r"=se.r, "se.z"=se.z))
+}
 # 
-# r = d / Sqr(d ^ 2 + 4)
-# StdErr(r) = Sqr(16 * StdErr(d) ^ 2 / ((d ^ 2 + 4) ^ 3))
-# 
-# r = 3,000 / Sqr(3,000 ^ 2 + 4) = 0,832
+# r = 3,000 / Sqr(3,000 ^ 2 + 4) = 0,832 # assuming n1 = n2 
 # StdErr(r) = Sqr(16 * 0,149 ^ 2 / ((3,000 ^ 2 + 4) ^ 3)) = 0,013
 # 
 # Computation of Z
