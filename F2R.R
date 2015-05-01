@@ -40,7 +40,7 @@ r.CI=function(r.equiv, N) {
 }
 
 pool.sd = function (sds, ns) {
-  SSlist = sds %*% (ns-1)
+  SSlist = sds^2 %*% (ns-1)
   pool.var = sum(SSlist) / sum(ns-1)
   return(sqrt(pool.var))
 }
