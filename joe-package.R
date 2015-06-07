@@ -107,3 +107,31 @@ fucker = function(r, n) {
 # 
 # FisherZ = 0.5 * Log((1 + 0,832) / (1 - 0,832)) = 1,195
 # StdErr(FisherZ) = (0,013) / (1 - 0,832 ^ 2) = 0,041
+
+# ask_joe, for moral and practical guidance in hard times.
+# Hilgard fortune cookie
+ask_joe = function() {
+  advice = c(
+    "Are you cleaning your data with dplyr?",
+    "Did you look at histograms of your DV?",
+    "Maybe the DV is Poisson-distributed.",
+    "Are you looking at accuracy rates? You should probably be using a logistic HLM.",
+    "I hope you've got this gathered into an R Project.",
+    "I hope you're backing everything up on GitHub.",
+    "I hope you're going to share the data and code on OSF.",
+    "Did you know? You can link your GitHub account to your OSF account.",
+    "Did you know? If you need a private GitHub repo, go to collaborate.missouri.edu.",
+    "Should those columns be rows? Use tidyr.",
+    "Follow me on Twitter at @JoeHilgard.",
+    "Follow Hadley Wickham on Twitter at @HadleyWickham",
+    "Publish your null results, in PLOS or Frontiers if you need to.",
+    "If your project's worth doing, it's worth taking the time now to preregister it.",
+    "Starting a new project? Figure out what statistical test you'll do. Decide now, not later.",
+    "What would it take to convince you that your hypothesis is right? What would it take to convince you that your hypothesis is wrong?",
+    "You should probably be using ggplot2.",
+    "You should probably be using a heirarchical linear model.",
+    "Don't turn a continuous variable categorical unless you have a damn good reason."
+    
+  )
+  cat(sample(advice, 1))
+}
