@@ -86,6 +86,11 @@ d2r2z = function(d, n1, n2) {
   return(list("Z" = FisherZ, "StdErr.z" = StdErr.z))
 }
 
+d2t = function(d, n1, n2) {
+  t = d * sqrt(n1 + n2 - 2) / 2
+  return(t)
+}
+
 fucker = function(r, n) {
   se.r = sqrt((1-r^2)/(n-2))
   se.r.2 = sqrt(1-r^2) / sqrt(n-2)
