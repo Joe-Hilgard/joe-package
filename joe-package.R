@@ -10,7 +10,11 @@ F2R = function(Fstat, N, width=.95, neg=F) {
   z.hi = r.equiv+margin*z.se
   r.equiv.low = (exp(2*z.low)-1)/(exp(2*z.low)+1)
   r.equiv.hi = (exp(2*z.hi)-1)/(exp(2*z.hi)+1)
-  return(c(r.equiv.low, r.equiv, r.equiv.hi))
+  return(list("point" = r.equiv,
+              "CI" = c(r.equiv.low, r.equiv.hi),
+              "SE" = "???",
+              "Z" = zScore,
+              "SE_z" = z.se))
 }
 
 t2R = function(tstat, N, digits=2) {
@@ -50,12 +54,12 @@ Cramer = function(chisq, n, k=2) {
   return(v)
 }
 
-#Computation of r according to CMA
-
+# Standard error according to
+# http://stats.stackexchange.com/questions/8487/how-do-you-calculate-confidence-intervals-for-cohens-d
 stderr.d = function(d, n1, n2) {
   term1 = (n1+n2)/(n1*n2) + d^2 / (2*(n1+n2-2))
   term2 = (n1+n2)/(n1+n2-2)
-  return(term1*term2)
+  return(sqrt(term1*term2))
 }
 
 # Odds Ratio into Cohen's d
